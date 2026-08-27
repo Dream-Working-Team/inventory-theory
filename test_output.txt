@@ -1,0 +1,21 @@
+test_banco_ejercicios_integridad (test_modelos.TestModelosInventario.test_banco_ejercicios_integridad)
+Verifica que todos los ejercicios del banco estén debidamente instanciados y calculados. ... ok
+test_ejercicio_ramon_oruro (test_modelos.TestModelosInventario.test_ejercicio_ramon_oruro)
+Verifica el ejercicio de Laptops en Oruro (Ramón) de la guía de la cátedra. ... ok
+test_exportador_txt (test_modelos.TestModelosInventario.test_exportador_txt)
+Verifica que el servicio de exportación escriba archivos .txt válidos. ... ok
+test_modelo_eoq_clasico (test_modelos.TestModelosInventario.test_modelo_eoq_clasico)
+Verifica los cálculos del EOQ básico y la igualdad de costos en el óptimo. ... ok
+test_modelo_probabilistico_desayunos (test_modelos.TestModelosInventario.test_modelo_probabilistico_desayunos)
+Verifica el caso de estudio probabilístico de la distribuidora de desayunos. ... ok
+test_modelo_quiebre_precios (test_modelos.TestModelosInventario.test_modelo_quiebre_precios)
+Verifica la optimización por tramos de descuento de 5,000 unidades de la guía. ... ok
+test_modelo_restricciones_lagrange (test_modelos.TestModelosInventario.test_modelo_restricciones_lagrange)
+Verifica la convergencia del multiplicador de Lagrange para restricción de espacio. ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.021s
+
+OK
+
+Result: SUCCESS
