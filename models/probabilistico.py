@@ -275,7 +275,7 @@ class ModeloProbabilistico(ModeloInventario):
             f"   • Costo Mantenimiento Ciclo (Q/2*H): ${self.costo_mantener_ciclo:,.2f}",
             f"   • Costo Mantener Stock Seg. (SS*H):  ${self.costo_mantener_ss:,.2f}",
             "-" * 84,
-            f"   ★ COSTO TOTAL ANUAL ESPERADO:        ${self.costo_total_anual:,.2f}",
+            f"   * COSTO TOTAL ANUAL ESPERADO:        ${self.costo_total_anual:,.2f}",
             "=" * 84,
             "",
             "POLÍTICA DE INVENTARIO (Q, ROP):",

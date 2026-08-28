@@ -190,7 +190,7 @@ class ModeloQuiebrePrecios(ModeloInventario):
             "   " + "-" * 79,
         ])
         for r in self.resultados_tramos:
-            marcador = " ★ ÓPTIMO" if self.mejor_tramo and r.tramo_index == self.mejor_tramo.tramo_index else ""
+            marcador = " * ÓPTIMO" if self.mejor_tramo and r.tramo_index == self.mejor_tramo.tramo_index else ""
             lineas.append(
                 f"   {r.tramo_index:<5}{r.eoq_calculado:<12.2f}{r.q_ajustado:<12.2f}${r.costo_compra:<13.2f}${r.costo_ordenar:<11.2f}${r.costo_mantener:<11.2f}${r.costo_total_anual:<13.2f}{marcador}"
             )

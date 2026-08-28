@@ -14,7 +14,7 @@ test_modelo_restricciones_lagrange (test_modelos.TestModelosInventario.test_mode
 Verifica la convergencia del multiplicador de Lagrange para restricción de espacio. ... ok
 
 ----------------------------------------------------------------------
-Ran 7 tests in 0.021s
+Ran 7 tests in 0.019s
 
 OK
 

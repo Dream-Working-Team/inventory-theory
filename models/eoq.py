@@ -151,7 +151,7 @@ class ModeloEOQ(ModeloInventario):
             f"   • Costo Anual de Mantenimiento:       ${self.costo_mantener_anual:,.2f}",
             f"   • Costo Total de Manejo de Inventario:${self.costo_total_inventario:,.2f}",
             "-" * 78,
-            f"   ★ COSTO TOTAL ANUAL GLOBAL (CT):      ${self.costo_total_anual:,.2f}",
+            f"   * COSTO TOTAL ANUAL GLOBAL (CT):      ${self.costo_total_anual:,.2f}",
             "=" * 78,
             "",
             "POLÍTICA DE INVENTARIO RECOMENDADA:",
