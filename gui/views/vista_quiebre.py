@@ -167,14 +167,15 @@ class VistaQuiebre(ctk.CTkScrollableFrame):
         self.table_tramos.insertar_fila(["3", "2000", "Inf", "4.75", "5%"])
 
     def _abrir_dialogo_agregar_tramo(self):
-        """Abre ventana modal sencilla para ingresar un nuevo tramo."""
+        """Abre ventana modal para ingresar un nuevo tramo con botones de acción visibles."""
         dialog = ctk.CTkToplevel(self)
         dialog.title("Agregar Nuevo Tramo de Descuento")
-        dialog.geometry("340x300")
+        dialog.geometry("380x430")
+        dialog.resizable(False, False)
         dialog.transient(self)
         dialog.grab_set()
 
-        ctk.CTkLabel(dialog, text="Ingrese Datos del Tramo", font=Theme.font_subtitle()).pack(pady=(15, 10))
+        ctk.CTkLabel(dialog, text="➕ Ingrese Datos del Tramo", font=Theme.font_subtitle(), text_color=Theme.TEXT_MAIN).pack(pady=(15, 8))
 
         e_min = self._crear_campo(dialog, "Cantidad Mínima (Q Mín):", "0")
         e_max = self._crear_campo(dialog, "Cantidad Máxima (Q Máx / 'Inf'):", "999")
@@ -193,9 +194,33 @@ class VistaQuiebre(ctk.CTkScrollableFrame):
                 self.table_tramos.insertar_fila([str(idx), f"{q_min:g}", q_max, f"{precio:.2f}", f"{desc:g}%"])
                 dialog.destroy()
             except ValueError:
-                messagebox.showerror("Error", "Ingrese valores numéricos válidos.")
+                messagebox.showerror("Error", "Ingrese valores numéricos válidos en los campos.")
 
-        ctk.CTkButton(dialog, text="Añadir Tramo", font=Theme.font_body_bold(), fg_color=Theme.PRIMARY, command=guardar).pack(fill="x", padx=15, pady=15)
+        # Contenedor de Botones de Acción
+        btn_box = ctk.CTkFrame(dialog, fg_color="transparent")
+        btn_box.pack(fill="x", padx=15, pady=(15, 15))
+
+        btn_guardar = ctk.CTkButton(
+            btn_box,
+            text="💾 Guardar Tramo",
+            font=Theme.font_body_bold(),
+            fg_color=Theme.PRIMARY,
+            hover_color=Theme.PRIMARY_HOVER,
+            command=guardar
+        )
+        btn_guardar.pack(side="left", fill="x", expand=True, padx=(0, 6))
+
+        btn_cancelar = ctk.CTkButton(
+            btn_box,
+            text="❌ Cancelar",
+            font=Theme.font_body(),
+            fg_color=Theme.BG_INPUT,
+            border_width=1,
+            border_color=Theme.BORDER_COLOR,
+            hover_color=Theme.BG_INPUT_HOVER,
+            command=dialog.destroy
+        )
+        btn_cancelar.pack(side="right", fill="x", expand=True, padx=(6, 0))
 
     def cargar_datos_completos(self, D: float, S: float, i: float, tramos: List[TramoDescuento]):
         """Carga datos programáticamente desde el banco de ejercicios."""

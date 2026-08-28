@@ -33,6 +33,7 @@ def menu_consola_interactivo():
     from models.probabilistico import ModeloProbabilistico
     from services.exportador import ExportadorServicio
     from services.banco_ejercicios import BancoEjerciciosService
+    from parcial.resolver_parcial import resolver_parcial_completo
 
     print("\n" + "=" * 80)
     print("  UNIVERSIDAD JOSÉ ANTONIO PÁEZ - FACULTAD DE INGENIERÍA")
@@ -46,7 +47,8 @@ def menu_consola_interactivo():
         print("3. Modelo de Varios Artículos con Restricciones (Lagrange)")
         print("4. Modelo Probabilístico (Demanda Normal, Z, SS, ROP)")
         print("5. Banco de Ejercicios Guiados de la Cátedra UJAP")
-        print("6. Iniciar Interfaz Gráfica (GUI)")
+        print("6. Ejecutar Solucionador del Parcial II (Generar TXT en reportes/)")
+        print("7. Iniciar Interfaz Gráfica (GUI)")
         print("0. Salir")
 
         opc = input("\nSeleccione una opción: ").strip()
@@ -168,6 +170,9 @@ def menu_consola_interactivo():
                 print("\nREPORTE FORMAL:\n" + ej_sel.modelo_instanciado.generar_reporte_txt())
 
         elif opc == "6":
+            resolver_parcial_completo()
+
+        elif opc == "7":
             print("Iniciando Interfaz Gráfica (GUI)...")
             iniciar_interfaz_grafica()
             break

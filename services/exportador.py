@@ -15,34 +15,48 @@ class ExportadorServicio:
     en archivos de texto plano (.txt) para entrega académica o análisis posterior.
     """
 
-    @staticmethod
-    def exportar_modelo_a_txt(modelo: ModeloInventario, ruta_archivo: str) -> str:
+    CARPETA_REPORTES = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "reportes"))
+
+    @classmethod
+    def asegurar_carpeta_reportes(cls) -> str:
+        """Crea y retorna la ruta absoluta a la carpeta reportes/."""
+        os.makedirs(cls.CARPETA_REPORTES, exist_ok=True)
+        return cls.CARPETA_REPORTES
+
+    @classmethod
+    def normalizar_ruta(cls, ruta_archivo: str) -> str:
+        """Si solo se proporciona el nombre del archivo, lo guarda dentro de reportes/."""
+        if not os.path.isabs(ruta_archivo) and not os.path.dirname(ruta_archivo):
+            return os.path.join(cls.asegurar_carpeta_reportes(), ruta_archivo)
+        os.makedirs(os.path.dirname(os.path.abspath(ruta_archivo)), exist_ok=True)
+        return os.path.abspath(ruta_archivo)
+
+    @classmethod
+    def exportar_modelo_a_txt(cls, modelo: ModeloInventario, ruta_archivo: str) -> str:
         """
         Exporta el reporte de un modelo individual al archivo especificado.
         Retorna la ruta absoluta del archivo guardado.
         """
+        ruta_final = cls.normalizar_ruta(ruta_archivo)
         reporte_contenido = modelo.generar_reporte_txt()
         
-        # Asegurar directorio
-        os.makedirs(os.path.dirname(os.path.abspath(ruta_archivo)), exist_ok=True)
-        
-        with open(ruta_archivo, "w", encoding="utf-8") as f:
+        with open(ruta_final, "w", encoding="utf-8") as f:
             f.write(reporte_contenido)
             f.write("\n\n" + "=" * 78 + "\n")
             f.write(f"  Fecha y Hora de Generación: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
             f.write("  Sistema POO de Teoría de Inventarios - Universidad José Antonio Páez\n")
             f.write("=" * 78 + "\n")
 
-        return os.path.abspath(ruta_archivo)
+        return ruta_final
 
-    @staticmethod
-    def exportar_consolidados(modelos: List[ModeloInventario], ruta_archivo: str) -> str:
+    @classmethod
+    def exportar_consolidados(cls, modelos: List[ModeloInventario], ruta_archivo: str) -> str:
         """
         Exporta un informe consolidado con múltiples modelos calculados.
         """
-        os.makedirs(os.path.dirname(os.path.abspath(ruta_archivo)), exist_ok=True)
+        ruta_final = cls.normalizar_ruta(ruta_archivo)
         
-        with open(ruta_archivo, "w", encoding="utf-8") as f:
+        with open(ruta_final, "w", encoding="utf-8") as f:
             f.write("=" * 84 + "\n")
             f.write("  UNIVERSIDAD JOSÉ ANTONIO PÁEZ - FACULTAD DE INGENIERÍA\n")
             f.write("  ESCUELA DE INGENIERÍA EN COMPUTACIÓN\n")

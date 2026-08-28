@@ -9,7 +9,9 @@ import matplotlib
 matplotlib.use('Agg')
 
 if __name__ == '__main__':
-    with open('test_output.txt', 'w', encoding='utf-8') as f:
+    os.makedirs('reportes', exist_ok=True)
+    ruta_out = os.path.join('reportes', 'test_output.txt')
+    with open(ruta_out, 'w', encoding='utf-8') as f:
         runner = unittest.TextTestRunner(stream=f, verbosity=2)
         suite = unittest.defaultTestLoader.discover('tests')
         result = runner.run(suite)

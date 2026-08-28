@@ -135,14 +135,14 @@ class ModeloEOQ(ModeloInventario):
             "   • Costo Total Anual Global:          CT = D * C + C_pedir + C_almacenar",
             "",
             "3. RESULTADOS ÓPTIMOS CALCULADOS:",
-            f"   ▶ LOTE ÓPTIMO DE PEDIDO (EOQ / Q*):  {self.Q_opt:,.2f} unidades (aprox. {round(self.Q_opt)} unidades)",
-            f"   ▶ PUNTO DE REORDEN (ROP):            {self.ROP:,.2f} unidades",
-            f"   ▶ NÚMERO DE PEDIDOS AL AÑO (N):      {self.N_pedidos:,.2f} pedidos/año",
-            f"   ▶ TIEMPO ENTRE PEDIDOS (T):          {self.T_dias:,.2f} días ({self.T_anos * 12:,.2f} meses)",
-            f"   ▶ DEMANDA DIARIA PROMEDIO (d):       {self.d_diaria:,.2f} unidades/día",
+            f"   - LOTE ÓPTIMO DE PEDIDO (EOQ / Q*):  {self.Q_opt:,.2f} unidades (aprox. {round(self.Q_opt)} unidades)",
+            f"   - PUNTO DE REORDEN (ROP):            {self.ROP:,.2f} unidades",
+            f"   - NÚMERO DE PEDIDOS AL AÑO (N):      {self.N_pedidos:,.2f} pedidos/año",
+            f"   - TIEMPO ENTRE PEDIDOS (T):          {self.T_dias:,.2f} días ({self.T_anos * 12:,.2f} meses)",
+            f"   - DEMANDA DIARIA PROMEDIO (d):       {self.d_diaria:,.2f} unidades/día",
         ])
         if self.pedidos_en_transito > 0:
-            lineas.append(f"   ▶ PEDIDOS PENDIENTES EN TRÁNSITO:    {self.pedidos_en_transito} órdenes en camino")
+            lineas.append(f"   - PEDIDOS PENDIENTES EN TRÁNSITO:    {self.pedidos_en_transito} órdenes en camino")
         lineas.extend([
             "",
             "4. DESGLOSE DE COSTOS ANUALES:",

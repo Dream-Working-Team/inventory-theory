@@ -404,4 +404,117 @@ class BancoEjerciciosService:
             modelo_instanciado=mod7
         ))
 
+        # -------------------------------------------------------------
+        # EJERCICIO 8: Parcial II - Ejercicio 2: Quiebre de Precios (10,000 Unidades)
+        # -------------------------------------------------------------
+        mod8 = ModeloQuiebrePrecios(
+            demanda_anual=10000,
+            costo_pedido=100,
+            tasa_almacenamiento=0.25,
+            tramos=[
+                TramoDescuento(q_min=0, q_max=999, precio_unitario=10.00, descuento_porcentaje=0.0),
+                TramoDescuento(q_min=1000, q_max=1999, precio_unitario=9.70, descuento_porcentaje=3.0),
+                TramoDescuento(q_min=2000, q_max=2999, precio_unitario=9.50, descuento_porcentaje=5.0),
+                TramoDescuento(q_min=3000, q_max=float('inf'), precio_unitario=9.30, descuento_porcentaje=7.0),
+            ],
+            nombre="Parcial II - Ejercicio 2: Quiebre de Precios (10,000 Unidades)"
+        )
+        mod8.calcular()
+
+        ejercicios.append(EjercicioCatedra(
+            id_ejercicio="PARCIAL-02",
+            titulo="Parcial II - Ejercicio 2: Quiebre de Precios con Descuentos (10,000 u.)",
+            tipo_modelo="quiebre",
+            fuente="Examen Parcial II (15%) - Escuela de Ingeniería en Computación (UJAP)",
+            enunciado=(
+                "Un proveedor ofrece el siguiente esquema de descuentos para un producto con una demanda anual "
+                "de 10,000 unidades. El precio base es $10 por unidad. El costo por pedido es de $100 y el costo de "
+                "almacenamiento anual es el 25% del precio del producto.\n\n"
+                "Tabla de Descuentos:\n"
+                "• 0–999 unidades: 0% descuento ($10.00/u)\n"
+                "• 1000–1999 unidades: 3% descuento ($9.70/u)\n"
+                "• 2000–2999 unidades: 5% descuento ($9.50/u)\n"
+                "• 3000 o más unidades: 7% descuento ($9.30/u)\n\n"
+                "Determine la cantidad óptima de pedido y el costo total mínimo."
+            ),
+            datos_resumen={
+                "Demanda Anual (D)": "10,000 unidades",
+                "Costo de Pedido (S)": "$100.00",
+                "Tasa Almacenamiento (i)": "25% anual",
+                "Precio Base": "$10.00 (Descuentos: 3%, 5%, 7%)"
+            },
+            solucion_explicada=(
+                "1. Tramo 1 [0 - 999]: P1 = $10.00, H1 = 0.25 * 10 = $2.50 -> EOQ1 = sqrt(2*10000*100/2.50) = 894.43 u (FACTIBLE en [0, 999]).\n"
+                "   Costo Total 1 = 10000*10 + (10000/894.43)*100 + (894.43/2)*2.50 = $100,000 + $1,118.03 + $1,118.03 = $102,236.07\n"
+                "2. Tramo 2 [1000 - 1999]: P2 = $9.70, H2 = 0.25 * 9.70 = $2.425 -> EOQ2 = sqrt(2*10000*100/2.425) = 908.15 u < 1000.\n"
+                "   Ajuste a Q2 = 1,000 unidades. Costo Total 2 = 10000*9.70 + (10000/1000)*100 + (1000/2)*2.425 = $99,212.50\n"
+                "3. Tramo 3 [2000 - 2999]: P3 = $9.50, H3 = 0.25 * 9.50 = $2.375 -> EOQ3 = sqrt(2*10000*100/2.375) = 917.66 u < 2000.\n"
+                "   Ajuste a Q3 = 2,000 unidades. Costo Total 3 = 10000*9.50 + (10000/2000)*100 + (2000/2)*2.375 = $97,875.00\n"
+                "4. Tramo 4 [3000+]: P4 = $9.30, H4 = 0.25 * 9.30 = $2.325 -> EOQ4 = sqrt(2*10000*100/2.325) = 927.48 u < 3000.\n"
+                "   Ajuste a Q4 = 3,000 unidades. Costo Total 4 = 10000*9.30 + (10000/3000)*100 + (3000/2)*2.325 = $96,820.83\n\n"
+                "5. Decisión Óptima: El lote óptimo es Q* = 3,000 unidades (Tramo 4), con el costo total anual mínimo de $96,820.83 "
+                "(ahorro de $5,415.24 al año respecto al Tramo 1)."
+            ),
+            modelo_instanciado=mod8
+        ))
+
+        # -------------------------------------------------------------
+        # EJERCICIO 9: Parcial II - Ejercicio 3: Multi-Artículo con Restricciones (Lagrange)
+        # -------------------------------------------------------------
+        mod9 = ModeloRestricciones(
+            limite_recurso=8000.0,
+            tipo_restriccion="presupuesto",
+            es_inventario_promedio=False,
+            articulos=[
+                ArticuloRestriccion(nombre="Artículo A", demanda_anual=3600, costo_pedido=30, costo_unitario=30, costo_almacenamiento=5.0, espacio_unitario=1.0),
+                ArticuloRestriccion(nombre="Artículo B", demanda_anual=3000, costo_pedido=35, costo_unitario=35, costo_almacenamiento=6.0, espacio_unitario=1.0),
+                ArticuloRestriccion(nombre="Artículo C", demanda_anual=4800, costo_pedido=40, costo_unitario=40, costo_almacenamiento=7.0, espacio_unitario=1.0),
+            ],
+            nombre="Parcial II - Ejercicio 3: Multi-Artículo con Restricciones (Lagrange)"
+        )
+        mod9.calcular()
+
+        ejercicios.append(EjercicioCatedra(
+            id_ejercicio="PARCIAL-03",
+            titulo="Parcial II - Ejercicio 3: Multi-Artículo con Presupuesto y Capacidad (Lagrange)",
+            tipo_modelo="restricciones",
+            fuente="Examen Parcial II (15%) - Escuela de Ingeniería en Computación (UJAP)",
+            enunciado=(
+                "Una gran empresa con alta demanda, costos elevados, espacio limitado y presupuesto ajustado:\n"
+                "• Artículos: A, B, C\n"
+                "• Demanda mensual: 300, 250, 400 unidades (Anual: 3600, 3000, 4800 u.)\n"
+                "• Costo de pedido: 30, 35, 40 ($)\n"
+                "• Costo de almacenamiento: 5, 6, 7 ($/u/año)\n"
+                "• Capacidad total: 700 unidades\n"
+                "• Presupuesto: $8,000\n"
+                "• Demanda diaria: 10, 8, 15 unidades/día\n"
+                "• Tiempo de entrega: 3, 4, 5 días\n\n"
+                "Determine los lotes óptimos con Lagrange, puntos de reorden y costo total."
+            ),
+            datos_resumen={
+                "Presupuesto": "$8,000.00",
+                "Capacidad": "700 unidades",
+                "Demanda Anual": "A: 3600, B: 3000, C: 4800",
+                "ROP": "A: 30 u, B: 32 u, C: 75 u"
+            },
+            solucion_explicada=(
+                "1. EOQ sin restricciones: Q_A = 207.85 u, Q_B = 187.08 u, Q_C = 234.22 u.\n"
+                "   • Suma de unidades: 629.14 u <= 700 u (Capacidad CUMPLE con holgura de 70.86 u).\n"
+                "   • Inversión total: $22,151.92 > $8,000 (Presupuesto NO CUMPLE -> RESTRICCIÓN ACTIVA).\n\n"
+                "2. Planteamiento con Multiplicadores de Lagrange (λ* = 0.571971):\n"
+                "   Q_i*(λ*) = sqrt( (2 * D_i * S_i) / (H_i + 2 * λ* * C_i) )\n"
+                "   • Q_A* = 74.12 u (~74 u) | Inversión: $2,223.57 | T = 0.247 meses (7.4 días) | N = 4.05 ped/mes\n"
+                "   • Q_B* = 67.54 u (~68 u) | Inversión: $2,363.85 | T = 0.270 meses (8.1 días) | N = 3.70 ped/mes\n"
+                "   • Q_C* = 85.31 u (~85 u) | Inversión: $3,412.58 | T = 0.213 meses (6.4 días) | N = 4.69 ped/mes\n"
+                "   Inversión total exacta = $8,000.00 | Unidades totales = 226.97 u <= 700 u.\n\n"
+                "3. Puntos de Reorden (ROP = d * LT):\n"
+                "   • ROP_A = 10 * 3 = 30 unidades (ordenar cuando el stock caiga a 30 u).\n"
+                "   • ROP_B = 8 * 4 = 32 unidades (ordenar cuando el stock caiga a 32 u).\n"
+                "   • ROP_C = 15 * 5 = 75 unidades (ordenar cuando el stock caiga a 75 u).\n\n"
+                "4. Costo Total Anual de Inventario: $5,948.79 (pedidos + almacenamiento)."
+            ),
+            modelo_instanciado=mod9
+        ))
+
         return ejercicios
+

@@ -1,0 +1,24 @@
+# Python bytecode y caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Archivos temporales y entornos virtuales
+venv/
+.venv/
+env/
+.env/
+
+# Salidas de reportes en texto plano
+*.txt
+!requirements.txt
+reportes/*.txt
+salidas/*.txt
+!reportes/.gitkeep
+
+# IDE y sistema operativo
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

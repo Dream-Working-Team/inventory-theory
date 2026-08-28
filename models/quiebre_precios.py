@@ -181,7 +181,8 @@ class ModeloQuiebrePrecios(ModeloInventario):
         for idx, t in enumerate(self.tramos_ordenados, start=1):
             rango_str = f"{t.q_min:,.0f} a {t.q_max:,.0f}" if t.q_max != float('inf') else f"{t.q_min:,.0f} o más"
             h_val = t.costo_almacenamiento_fijo if t.costo_almacenamiento_fijo else self.i * t.precio_unitario
-            lineas.append(f"   {idx:<8}{rango_str:<22}${t.precio_unitario:<13.2f}{t.descuento_porcentaje:<12.1f}%${h_val:<11.2f}")
+            desc_str = f"{t.descuento_porcentaje:.1f}%"
+            lineas.append(f"   {idx:<8}{rango_str:<22}${t.precio_unitario:<13.2f}{desc_str:<12}${h_val:<11.2f}")
 
         lineas.extend([
             "",
@@ -199,13 +200,13 @@ class ModeloQuiebrePrecios(ModeloInventario):
             "",
             "4. CONCLUSIÓN Y DECISIÓN ÓPTIMA:",
             "=" * 82,
-            f"   ▶ LOTE ÓPTIMO RECOMENDADO (Q*):      {self.mejor_tramo.q_ajustado:,.2f} unidades",
-            f"   ▶ PRECIO UNITARIO APLICABLE:         ${self.mejor_tramo.precio_unitario:,.2f} por unidad",
-            f"   ▶ TRAMO SELECCIONADO:                Tramo #{self.mejor_tramo.tramo_index} ({self.mejor_tramo.estado})",
-            f"   ▶ COSTO TOTAL ANUAL MÍNIMO:          ${self.mejor_tramo.costo_total_anual:,.2f}",
+            f"   - LOTE ÓPTIMO RECOMENDADO (Q*):      {self.mejor_tramo.q_ajustado:,.2f} unidades",
+            f"   - PRECIO UNITARIO APLICABLE:         ${self.mejor_tramo.precio_unitario:,.2f} por unidad",
+            f"   - TRAMO SELECCIONADO:                Tramo #{self.mejor_tramo.tramo_index} ({self.mejor_tramo.estado})",
+            f"   - COSTO TOTAL ANUAL MÍNIMO:          ${self.mejor_tramo.costo_total_anual:,.2f}",
         ])
         if self.ahorro_anual > 0:
-            lineas.append(f"   ▶ AHORRO ANUAL POR DESCUENTO:        ${self.ahorro_anual:,.2f} (con respecto al Tramo 1)")
+            lineas.append(f"   - AHORRO ANUAL POR DESCUENTO:        ${self.ahorro_anual:,.2f} (con respecto al Tramo 1)")
         lineas.extend([
             "=" * 82,
             "",

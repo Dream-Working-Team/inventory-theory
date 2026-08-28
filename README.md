@@ -29,6 +29,7 @@ inventory-theory/
 │
 ├── main.py                          # Punto de entrada (Lanza GUI o CLI)
 ├── requirements.txt                 # Dependencias del proyecto
+├── run_tests.py                     # Ejecutor de pruebas unitarias
 ├── README.md                        # Documentación técnica y manual de uso
 │
 ├── models/                          # CAPA DE DOMINIO (Modelos Matemáticos POO)
@@ -38,6 +39,20 @@ inventory-theory/
 │   ├── quiebre_precios.py           # Clase ModeloQuiebrePrecios y TramoDescuento
 │   ├── restricciones.py             # Clase ModeloRestricciones y ArticuloRestriccion
 │   └── probabilistico.py            # Clase ModeloProbabilistico y Simulación Monte Carlo
+│
+├── parcial/                         # EVALUACIÓN PARCIAL II (Módulos de Resolución)
+│   ├── __init__.py
+│   ├── ejercicio1_eoq.py            # Resolución Ejercicio 1 (EOQ Clásico)
+│   ├── ejercicio2_quiebre.py        # Resolución Ejercicio 2 (Quiebre de Precios)
+│   ├── ejercicio3_restricciones.py  # Resolución Ejercicio 3 (Lagrange con unidades mes/día)
+│   └── resolver_parcial.py          # Solucionador automatizado y exportador consolidado
+│
+├── reportes/                        # SALIDAS Y REPORTES EN TEXTO PLANO (.txt)
+│   ├── .gitkeep
+│   ├── salida_ejercicio1.txt
+│   ├── salida_ejercicio2.txt
+│   ├── salida_ejercicio3.txt
+│   └── salida_parcial_completo.txt
 │
 ├── gui/                             # CAPA DE PRESENTACIÓN (Tkinter / CustomTkinter)
 │   ├── __init__.py
@@ -84,7 +99,12 @@ python main.py
 python main.py --cli
 ```
 
-### 4. Ejecutar la Suite de Pruebas Unitarias
+### 4. Ejecutar el Solucionador Modular del Parcial II (Generar TXT en reportes/)
+```bash
+python -m parcial.resolver_parcial
+```
+
+### 5. Ejecutar la Suite de Pruebas Unitarias
 ```bash
 python run_tests.py
 ```

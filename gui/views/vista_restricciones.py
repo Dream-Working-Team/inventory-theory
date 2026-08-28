@@ -179,14 +179,15 @@ class VistaRestricciones(ctk.CTkScrollableFrame):
         self.entry_limite.insert(0, "220.0")
 
     def _abrir_dialogo_agregar_articulo(self):
-        """Modal para añadir un nuevo producto al catálogo."""
+        """Modal para añadir un nuevo producto al catálogo con botones visibles."""
         dialog = ctk.CTkToplevel(self)
         dialog.title("Agregar Producto al Inventario")
-        dialog.geometry("360x380")
+        dialog.geometry("380x520")
+        dialog.resizable(False, False)
         dialog.transient(self)
         dialog.grab_set()
 
-        ctk.CTkLabel(dialog, text="Datos del Producto", font=Theme.font_subtitle()).pack(pady=(15, 8))
+        ctk.CTkLabel(dialog, text="➕ Datos del Producto", font=Theme.font_subtitle(), text_color=Theme.TEXT_MAIN).pack(pady=(15, 6))
 
         e_nom = self._crear_campo(dialog, "Nombre / Código Producto:", f"Producto {chr(65 + len(self.table_articulos.obtener_todas_las_filas()))}")
         e_d = self._crear_campo(dialog, "Demanda Anual (D):", "1000")
@@ -209,7 +210,31 @@ class VistaRestricciones(ctk.CTkScrollableFrame):
             except ValueError:
                 messagebox.showerror("Error", "Ingrese valores numéricos válidos en todos los campos.")
 
-        ctk.CTkButton(dialog, text="Guardar Producto", font=Theme.font_body_bold(), fg_color=Theme.PRIMARY, command=guardar).pack(fill="x", padx=15, pady=15)
+        # Contenedor de Botones
+        btn_box = ctk.CTkFrame(dialog, fg_color="transparent")
+        btn_box.pack(fill="x", padx=15, pady=(15, 15))
+
+        btn_guardar = ctk.CTkButton(
+            btn_box,
+            text="💾 Guardar Producto",
+            font=Theme.font_body_bold(),
+            fg_color=Theme.PRIMARY,
+            hover_color=Theme.PRIMARY_HOVER,
+            command=guardar
+        )
+        btn_guardar.pack(side="left", fill="x", expand=True, padx=(0, 6))
+
+        btn_cancelar = ctk.CTkButton(
+            btn_box,
+            text="❌ Cancelar",
+            font=Theme.font_body(),
+            fg_color=Theme.BG_INPUT,
+            border_width=1,
+            border_color=Theme.BORDER_COLOR,
+            hover_color=Theme.BG_INPUT_HOVER,
+            command=dialog.destroy
+        )
+        btn_cancelar.pack(side="right", fill="x", expand=True, padx=(6, 0))
 
     def cargar_datos_completos(self, limite: float, tipo: str, es_promedio: bool, articulos: List[ArticuloRestriccion]):
         """Carga datos programáticamente desde el banco de ejercicios."""
